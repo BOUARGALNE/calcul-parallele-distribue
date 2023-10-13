@@ -2,22 +2,12 @@ package com.bouargalne.springcloud_kafka_stream.service;
 
 import com.bouargalne.springcloud_kafka_stream.entities.PageEvent;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import com.bouargalne.springcloud_kafka_stream.service.AppSerdes;
-import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.KeyValue;
-import org.apache.kafka.streams.kstream.*;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.util.Date;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Configuration
@@ -49,18 +39,5 @@ public class PageEventService {
         };
     }
 
-    //@Bean
-    public Consumer<KStream<String,PageEvent>> pageStreamConsumer(){
-        return (pageEvent -> pageEvent
-                .filter((k,v)->v.getDuration()>100)
-                .map((k,v)->new KeyValue<>(v.getName(),v))
-                .peek((k,v)-> System.out.println(k+"=>"+v))
-                .groupByKey(Grouped.with(Serdes.String(), AppSerdes.PageEventSerdes()))
-                .reduce((acc,v)->{
-                   v.setDuration(v.getDuration()+acc.getDuration());
-                    return v;
-                })
-                .toStream()
-                .peek((k,v)-> System.out.println(k+"=>"+v)));
-    }
+
 }

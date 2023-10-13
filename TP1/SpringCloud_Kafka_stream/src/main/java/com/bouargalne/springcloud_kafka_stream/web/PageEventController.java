@@ -57,37 +57,6 @@ public class PageEventController {
                     return map;
                 });
     }
-    @GetMapping(value = "/analyticsWindows",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Map<String,Long>> analyticsWindows(){
-        return Flux.interval(Duration.ofSeconds(1))
-                .map(seq->{
-                    Map<String,Long> map=new HashMap<>();
-                    ReadOnlyWindowStore<String, Long> stats = interactiveQueryService.getQueryableStore("count-store", QueryableStoreTypes.windowStore());
-                    Instant now=Instant.now();
-                    Instant from=now.minusSeconds(30);
-                    KeyValueIterator<Windowed<String>, Long> windowedLongKeyValueIterator = stats.fetchAll(from, now);
-                    while (windowedLongKeyValueIterator.hasNext()){
-                        KeyValue<Windowed<String>, Long> next = windowedLongKeyValueIterator.next();
-                        map.put(next.key.key(),next.value);
-                    }
-                    return map;
-                });
-    }
-    @GetMapping(value = "/analyticsAggregate",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Map<String,Double>> analyticsAggregate(){
-        return Flux.interval(Duration.ofSeconds(1))
-                .map(seq->{
-                    Map<String,Double> map=new HashMap<>();
-                    ReadOnlyWindowStore<String, Double> stats = interactiveQueryService.getQueryableStore("total-store", QueryableStoreTypes.windowStore());
-                    Instant now=Instant.now();
-                    Instant from=now.minusSeconds(30);
-                    KeyValueIterator<Windowed<String>, Double> windowedLongKeyValueIterator = stats.fetchAll(from, now);
-                    while (windowedLongKeyValueIterator.hasNext()){
-                        KeyValue<Windowed<String>, Double> next = windowedLongKeyValueIterator.next();
-                        map.put(next.key.key(),next.value);
-                    }
-                    return map;
-                });
-    }
+
 
 }

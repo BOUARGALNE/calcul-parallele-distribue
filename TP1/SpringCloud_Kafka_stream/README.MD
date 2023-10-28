@@ -1,29 +1,11 @@
 # Activité pratique N°1
 
-## Sommaire
-- [x] Partie 1 : Kafka
-- - [x] 1.1 Installation de Kafka
-- - [x] 1.2 Lancement de Kafka et Zookeeper
-- - [x] 1.3 Test de Kafka
-- [x] Partie 2 : Docker
-- - [x] 2.1 Installation des composants
-- - [x] 2.2 Création d'un environnnment
-- [x] Partie 3 : Spring cloud
-- - [x] 3.1 Initialisation du projet
-- - [x] 3.2 Service Producer KAFKA via un Rest Controler 
-- - [x] 3.3 Service Consumer KAFKA
-- - [x] 3.4 Service Supplier KAFKA
-- - [x] 3.5 Service de Data Analytics Real Time Stream Processing avec Kaflka Streams
-- - [x] 3.6 Application Web qui permet d'afficher les résultats du Stream Data Analytics en temps réel
----
-
 ## Partie 1 : Kafka
 
 ### 1.1 Installation de Kafka
-Sur le site officiel de Kafka, on peut télécharger la dernière version de Kafka. Pour ce TP, nous avons utilisé la version 2.12-2.3.0. Après avoir téléchargé l'archive, il faut la décompresser et se placer dans le dossier créé. 
+Sur le site officiel de Kafka, télécharger la dernière version de Kafka. 
 
 ### 1.2 Lancement de Kafka et Zookeeper
-Il faut lancer le serveur Zookeeper et le serveur Kafka. Pour cela, il faut lancer les commandes suivantes dans deux terminaux différents :
 
 ```bash
 start .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
@@ -33,7 +15,7 @@ start .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 start .\bin\windows\kafka-server-start.bat .\config\server.properties
 ```
 
-![Exécution des commandes](img/image.png)
+![Exécution des commandes](SpringCloud_Kafka_stream/images/zookeper.png)
 
 ### 1.3 Test de Kafka
 Pour tester Kafka, il faut créer un topic et envoyer des messages. Pour créer un topic, il faut lancer la commande suivante :

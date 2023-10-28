@@ -11,6 +11,9 @@ Sur le site officiel de Kafka, télécharger la dernière version de Kafka.
 start .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 ```
 
+![Exécution des commandes](images/server.png)
+
+
 ```bash
 start .\bin\windows\kafka-server-start.bat .\config\server.properties
 ```
@@ -18,7 +21,7 @@ start .\bin\windows\kafka-server-start.bat .\config\server.properties
 ![Exécution des commandes](images/zookeeper.png)
 
 ### 1.3 Test de Kafka
-Pour tester Kafka, il faut créer un topic et envoyer des messages. Pour créer un topic, il faut lancer la commande suivante :
+ créer un topic et envoyer des messages. Pour créer un topic, il faut lancer la commande suivante :
 
 ```bash
 start .\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
@@ -38,25 +41,17 @@ Pour lire les messages, il faut lancer la commande suivante :
 .\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test --from-beginning
 ```
 
-![Test de Kafka](img/image-1.png)
+![Test de Kafka](images/prod.png)
 
 
-![Test Kafka 2](img/image-2.png)
+![Test Kafka 2](imgages/cust.png)
 
 
 ## Patie 2 : Docker 
 
 ### 2.1 Installation des composants
-Pour installer Docker, il faut suivre les instructions du site officiel de Docker. Pour ce TP, nous avons utilisé la version Docker Desktop 4.24.1  (Windows 10 Home).
-
-
-![Docker Desktop Interface](img/image-3.png)
 
 ### 2.2 Création d'un environnnment 
-
-Pour ceci, on utilisera la documentation **Confluent** : https://developer.confluent.io/quickstart/kafka-docker/ . 
-
-![Confluent guide](img/image-10.png)
 
 Voici le fichier [`docker-compose.yml`](./kafka-java-getting-started/docker-compose.yml) utilisé : 
 
@@ -162,18 +157,6 @@ On lance le projet et dans un navigateur on tape l'url suivante :
 http://localhost:8080/publish/test/blog
 
 avec test le nom du topic et blog le nom de la page.
-
-![img/img_1.png](img/img_1.png)
-
-Résultat :
-```json
-{
-  "name": "blog",
-  "user": "U2",
-  "date": "2023-10-14T21:21:30.690+00:00",
-  "duration": 8892
-}
-```
 
 ### 3.3 Service Consumer KAFKA
 Oncréer le service 

@@ -15,7 +15,7 @@ start .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 start .\bin\windows\kafka-server-start.bat .\config\server.properties
 ```
 
-![Exécution des commandes](SpringCloud_Kafka_stream/images/zookeper.png)
+![Exécution des commandes](images/zookeper.png)
 
 ### 1.3 Test de Kafka
 Pour tester Kafka, il faut créer un topic et envoyer des messages. Pour créer un topic, il faut lancer la commande suivante :

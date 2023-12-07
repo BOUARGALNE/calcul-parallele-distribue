@@ -7,7 +7,7 @@
 ![archi](images/architectures.png)
 
 ####  Micro-services :  
-* Customer-service :
+* Customer-service : 
   pour ce service on aura besoin de ces dependances :
   ```bash
   <dependencies>
@@ -58,7 +58,26 @@ et on met discovery en true pour que le service peut s'enregistrer automatiqueme
 server.port=8081
 spring.application.name=customer-service
 spring.datasource.url=jdbc:h2:mem:DB_Customer
-spring.cloud.discovery.enabled=true```
+spring.cloud.discovery.enabled=true
+```
+puis on remplie la base de donnees avec quelques enregistrement : 
+```bash
+    @Bean
+    CommandLineRunner start(CustomerRepository customerRepository,
+                            RepositoryRestConfiguration repositoryRestConfiguration
+    ){
+        repositoryRestConfiguration.exposeIdsFor(Customer.class);
+        return args->{
+
+            Stream.of("hamid", "abdo", "karima", "ihssan", "khalid", "mouad", "samira").forEach(name -> {
+
+                customerRepository.save(new Customer(name,name+"@gmail.com"));
+
+            });
+
+            customerRepository.findAll().forEach(System.out::println);
+        };
+```
 * eureka-service
 
 

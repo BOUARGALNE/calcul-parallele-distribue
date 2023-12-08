@@ -16,23 +16,22 @@ kc.bat start-dev
 ```
 ##### 3. Créer un compte Admin 
 ![admin](captures/admin.png) 
-puis on fait connecter au compte admin 
+puis on fait connecter au compte admin  
 ![admin](captures/signadmin.png) 
 ##### 4. Créer une Realm 
 * wallet-realm
 ![admin](captures/createrealm.png)
-
 ![realm](captures/wallet-realm.png) 
 ##### 5. Créer un client à sécuriser 
- ![client](captures/client1.png) 
- 
- ![client](captures/client2.png) 
+![client](captures/client1.png) 
+![client](captures/client2.png) 
 ##### 6. Créer des utilisateurs 
 * user1 :
- ![client](captures/user1.png) 
- ![client](captures/cred-bouargalne.png)
-* user2 :
- ![client](captures/cred-hamid.png) 
+![client](captures/user1.png) 
+![client](captures/cred-bouargalne.png)
+* user2 : 
+![client](captures/cred-hamid.png)
+![client](captures/all-users.png) 
  
 ##### 7. Créer des rôles
 * USER :
@@ -40,10 +39,18 @@ puis on fait connecter au compte admin
   ![client](captures/role-user.png) 
 
 * ADMIN :
+  
   ![client](captures/role-admin.png) 
 
 ##### 8. Affecter les rôles aux utilisateurs 
-dans cette partie on va assigner le role ADMIN & USER au user "bouargalne" et USER au user "hamid"
+dans cette partie on va assigner le role ADMIN & USER au user "bouargalne" et USER au user "hamid" 
+* user "bouargalne" :
+
+  ![client](captures/assignrole-bouargalne.png) 
+
+* user "hamid" :
+  
+  ![client](captures/assignrole-hamid.png) 
 
 ##### 9. Avec PostMan :
     - Tester l'authentification avec le mot de passe

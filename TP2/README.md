@@ -4,10 +4,10 @@
 ![enonce](captures/ennonce.png)
 
 ####  Architecture : 
-![archi](images/architectures.png)
+![archi](captures/architectures.png)
 
 ####  Micro-services :  
-* Customer-service : 
+* Customer-service :  
   pour ce service on aura besoin de ces dependances :
   ```bash
   <dependencies>
@@ -78,7 +78,145 @@ puis on remplie la base de donnees avec quelques enregistrement :
             customerRepository.findAll().forEach(System.out::println);
         };
 ```
-* eureka-service
+* inventory-service :
+  Pour ce service, la meme procedure que Customer service.
+* eureka-service :
 
+   Pour le dependences de ce service on aura besoin seulement que de eureka server
+  ```bash
+   <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+   ```
+  pour la configuration de ce service
+  ```bash
+     #par défault 8761
+     server.port=8761
+     # dont register server itself as a client.
+     eureka.client.fetch-registry=false
+     # Does not register itself in the service registry.
+     eureka.client.register-with-eureka=false
+   ```
+si on connecte vers eureka service via le lien suivant http://localhost:8761 
+on trouve que les services sont bien enregistrees dans eureka
+![archi](captures/services.png) 
 
+* getway-service :
+ voici les dependances de la getway 
+  ```bash
+    <dependencies>
+          <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-actuator</artifactId>
+          </dependency>
+          <dependency>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-starter-gateway</artifactId>
+          </dependency>
+          <dependency>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+          </dependency>
+  
+          <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-test</artifactId>
+              <scope>test</scope>
+          </dependency>
+      </dependencies>
+  ```
+pour la configuration du getway 
+  ```bash
+  spring:
+    cloud:
+      gateway:
+        routes:
+          - id: r1
+            uri: http://localhost:8081/
+            predicates:
+              - Path = /customers/**
+          - id: r2
+            uri : http://localhost:8082/
+            predicates:
+              - Path= /products/**
+        globalcors:
+          corsConfigurations:
+            '[/**]':
+              allowedOrigins: "http://localhost:4200/*"
+              allowedHeaders: "*"
+              allowedMethods:
+                - GET
+                - POST
+                - PUT
+                - DELETE
+      discovery:
+        enabled: true
+  
+  server:
+    port: 8083
+  ```
+aussi
+  ```bash
+      //=>Méthode statique: je connais les routes
+      //@Bean
+      RouteLocator gatewayRoutes(RouteLocatorBuilder builder){ //configurer les rootes
+          return builder.routes()
+  //                .route(r->r.path("/customers/**").uri("http://localhost:8081/"))
+  //                .route(r->r.path("/products/**").uri("http://localhost:8082/"))
+                  .route(r->r.path("/customers/**").uri("lb://CUSTOMER-SERVICE"))
+                  .route(r->r.path("/products/**").uri("lb://PRODUCT-SERVICE"))
+                  .build();
+  
+      }
+  
+      //=>Méthode dynamique:
+      //  - je ne connais pas les route
+      //  - à chaque fois que tu reçoit une requete, regarde dans l'URL de la requete tu vas trouvé le nom du Micro Service
+      @Bean
+      DiscoveryClientRouteDefinitionLocator dynamicRoutes(
+              ReactiveDiscoveryClient rdc,
+              DiscoveryLocatorProperties dlp){
+  
+          return new DiscoveryClientRouteDefinitionLocator(rdc,dlp);
+  
+      }
+  ```
+si on essaye d'acceder aux services via la getway
+![archi](captures/getway.png) 
 
+* billing-service :
+ dans ce services on aura besoin d'acceder aux donnees d'autres services, dans ce cas
+la on utilise les deux dependance suivantes :
+ ```bash
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-openfeign</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-hateoas</artifactId>
+    </dependency>
+ ```
+pour acceder au customer-service 
+```bash
+@FeignClient(name = "CUSTOMER-SERVICE")
+public interface CustomerRestClient {
+
+    @GetMapping(path = "/customers/{id}")
+    Customer getCustomerById(@PathVariable(name="id") Long id);
+}
+```
+pour acceder au product-service 
+
+```bash
+@FeignClient(name = "PRODUCT-SERVICE")
+public interface ProductRestClient {
+
+    @GetMapping(path = "/products")
+    PagedModel<Product> pageProducts(); //@RequestParam(value = "name") int page, @RequestParam(value = "size") int size
+
+    @GetMapping(path = "/products/{id}")
+    Product getProductById(@PathVariable Long id);
+}
+```

@@ -4,10 +4,12 @@ Il comprend des travaux pratiques et des ressources supplémentaires.
 ## Contenu
 * Activité pratique N° 1 :   [Event Driven Architecture - JMS et KAFKA](https://github.com/BOUARGALNE/calcul-parallele-distribue/tree/main/TP1/SpringCloud_Kafka_stream)
 * Activité pratique N°2 : [Architectures Micro-services avec Spring cloud](https://github.com/BOUARGALNE/calcul-parallele-distribue/tree/main/TP2)
+* Activité pratique N°3 : [Event Driven Architectured:les patterns CQRS et Event Sourcing](https://github.com/BOUARGALNE/calcul-parallele-distribue/tree/main/compte-cqrs-es)
 
 
 ## contact
 - [ ] <https://github.com/BOUARGALNE>
 - [ ] `bouargalne.hamid@gmail.com`
 - [ ] `Big Data & Cloud Computing`
+- [ ] `sous l'encadrement de M. Mohamed YOUSSFI`
 

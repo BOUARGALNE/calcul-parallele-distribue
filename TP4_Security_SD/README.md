@@ -63,11 +63,11 @@ dans cette partie on va assigner le role ADMIN & USER au user "bouargalne" et US
    - Tester l'authentification avec le Refresh Token
     ![client](captures/auth-refresh1.png)
     ![client](captures/auth-refresh2.png)
-   - Tester l'authentification avec Client ID et Client Secret
+   - Tester l'authentification avec Client ID et Client Secret 
     ![client](captures/client-modif.png)
-    ![client](captures/clientsecret.png)
+    ![client](captures/clientsercret.png)
     ![client](captures/auth-secret1.png)
     ![client](captures/auth-secret2.png)
    - Changer les paramètres des Tokens Access Token et Refresh Toke
-    ![client](captures/test-pass1.png)
-    ![client](captures/test-pass1.png) 
+    ![client](captures/changerefresh.png)
+   

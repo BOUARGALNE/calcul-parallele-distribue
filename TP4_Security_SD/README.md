@@ -36,25 +36,38 @@ puis on fait connecter au compte admin
 ##### 7. Créer des rôles
 * USER :
 
-  ![client](captures/role-user.png) 
+![client](captures/role-user.png) 
 
 * ADMIN :
   
-  ![client](captures/role-admin.png) 
+![client](captures/role-admin.png) 
 
 ##### 8. Affecter les rôles aux utilisateurs 
 dans cette partie on va assigner le role ADMIN & USER au user "bouargalne" et USER au user "hamid" 
 * user "bouargalne" :
 
-  ![client](captures/assignrole-bouargalne.png) 
+![client](captures/assignrole-bouargalne.png) 
 
 * user "hamid" :
   
-  ![client](captures/assignrole-hamid.png) 
+![client](captures/assignrole-hamid.png) 
 
 ##### 9. Avec PostMan :
-    - Tester l'authentification avec le mot de passe
-    - Analyser les contenus des deux JWT Access Token et Refresh Token
-    - Tester l'authentification avec le Refresh Token
-    - Tester l'authentification avec Client ID et Client Secret
-    - Changer les paramètres des Tokens Access Token et Refresh Toke
+   - Tester l'authentification avec le mot de passe
+    ![client](captures/test-pass1.png)
+    ![client](captures/test-pass2.png)
+    ![client](captures/test-pass3.png) 
+   - Analyser les contenus des deux JWT Access Token et Refresh Token
+    ![client](captures/ana-token1.png)
+    ![client](captures/ana-token2.png) 
+   - Tester l'authentification avec le Refresh Token
+    ![client](captures/auth-refresh1.png)
+    ![client](captures/auth-refresh2.png)
+   - Tester l'authentification avec Client ID et Client Secret
+    ![client](captures/client-modif.png)
+    ![client](captures/clientsecret.png)
+    ![client](captures/auth-secret1.png)
+    ![client](captures/auth-secret2.png)
+   - Changer les paramètres des Tokens Access Token et Refresh Toke
+    ![client](captures/test-pass1.png)
+    ![client](captures/test-pass1.png) 

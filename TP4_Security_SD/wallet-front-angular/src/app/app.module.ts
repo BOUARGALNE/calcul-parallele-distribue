@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +12,21 @@ import {WalletsComponent} from "./wallets/wallets.component";
 import {WalletTransactionsComponent} from "./wallet-transactions/wallet-transactions.component";
 import {CurrencyDepositComponent} from "./currency-deposit/currency-deposit.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
+export function kcFactory(kcService: KeycloakService) {
+  return () => kcService.init({
+    config: {
+      url: 'http://localhost:8080',
+      realm: 'wallet-realm',
+      clientId: 'wallet-realm-bouargalne'
+    },
+    initOptions: {
+      onLoad: 'login-required',
+      checkLoginIframe: false
+    }
+  });
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +42,18 @@ import {ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     GraphQLModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    KeycloakAngularModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      deps: [KeycloakService],
+      multi: true,
+      useFactory: kcFactory
+      
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
